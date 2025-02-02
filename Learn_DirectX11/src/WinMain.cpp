@@ -7,6 +7,8 @@
 
 #include <Windows.h>
 
+#include "MessageMap.h"
+
 LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
@@ -52,6 +54,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 }
 
 LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
+	static MessageMap mm;
+	OutputDebugString(mm(msg, lParam, wParam));
 	switch (msg) {
 	case WM_CLOSE:
 		PostQuitMessage(1);
