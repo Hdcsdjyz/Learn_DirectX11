@@ -166,12 +166,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\function.cpp" />
+    <ClCompile Include="src\ST_Exception.cpp" />
     <ClCompile Include="src\Window\MessageMap.cpp" />
     <ClCompile Include="src\Window\Window.cpp" />
     <ClCompile Include="src\WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\function.h" />
+    <ClInclude Include="src\ST_Exception.h" />
     <ClInclude Include="src\Window\MessageMap.h" />
     <ClInclude Include="src\Window\ST_Window.h" />
     <ClInclude Include="src\Window\Window.h" />
