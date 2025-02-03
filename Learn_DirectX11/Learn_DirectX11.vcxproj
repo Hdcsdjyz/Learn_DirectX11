@@ -166,12 +166,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\function.cpp" />
-    <ClCompile Include="src\MessageMap.cpp" />
+    <ClCompile Include="src\Window\MessageMap.cpp" />
+    <ClCompile Include="src\Window\Window.cpp" />
     <ClCompile Include="src\WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\function.h" />
-    <ClInclude Include="src\MessageMap.h" />
+    <ClInclude Include="src\Window\MessageMap.h" />
+    <ClInclude Include="src\Window\ST_Window.h" />
+    <ClInclude Include="src\Window\Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

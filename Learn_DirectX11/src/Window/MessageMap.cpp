@@ -1,15 +1,15 @@
-/***
- * @file ST_Window_MessageMap.cpp
+/**
+ * @file MessageMap.cpp
  * @auther Lhxl
  * @date 2025-2-3
  * @version build2
- ***/
+ */
 
 #include <sstream>
 #include <iomanip>
 
 #include "MessageMap.h"
-#include "function.h"
+#include "../function.h"
 
 #define WM_UAHDESTROYWINDOW			0x0090
 #define WM_UAHDRAWMENU				0x0091
@@ -17,7 +17,6 @@
 #define WM_UAHINITMENU				0x0093
 #define WM_UAHMEASUREMENUITEM		0x0094
 #define WM_UAHUAHNCPAINTMENUPOPUP	0x0095
-
 
 #define REGISTER_MESSAGE(msg) {msg, #msg}
 

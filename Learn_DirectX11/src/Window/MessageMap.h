@@ -1,9 +1,9 @@
-/***
- * @file ST_Window_MessageMap.h
+/**
+ * @file MessageMap.h
  * @auther Lhxl
  * @date 2025-2-3
  * @version build2
- ***/
+ */
 
 #ifndef MESSAGEMAP_H
 #define MESSAGEMAP_H
@@ -12,6 +12,9 @@
 #include <unordered_map>
 #include <string>
 
+/**
+ * @brief ´°¿ÚÐÅÏ¢
+ */
 class MessageMap
 {
 public:
