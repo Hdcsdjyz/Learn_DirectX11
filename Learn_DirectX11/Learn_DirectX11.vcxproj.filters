@@ -47,5 +47,18 @@
     <ClInclude Include="src\ST_Exception.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="src\resource\resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="src\resource\Resource.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resourse\icon\title.ico">
+      <Filter>资源文件</Filter>
+    </Image>
   </ItemGroup>
 </Project>

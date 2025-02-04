@@ -172,11 +172,18 @@
     <ClCompile Include="src\WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\resource\resource.h" />
     <ClInclude Include="src\function.h" />
     <ClInclude Include="src\ST_Exception.h" />
     <ClInclude Include="src\Window\MessageMap.h" />
     <ClInclude Include="src\Window\ST_Window.h" />
     <ClInclude Include="src\Window\Window.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="src\resource\Resource.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resourse\icon\title.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
