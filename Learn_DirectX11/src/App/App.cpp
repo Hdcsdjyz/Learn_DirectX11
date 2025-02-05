@@ -1,8 +1,8 @@
 ﻿/**
  * @file App.cpp
  * @author Lhxl
- * @date 2025-2-5
- * @version build7
+ * @date 2025-2-6
+ * @version build8
  */
 
 #include <sstream>
@@ -21,8 +21,7 @@ int App::Go() {
 }
 
 void App::_DoFrame() {
-	const float t = _timer.Peek();
-	std::wostringstream woss;
-	woss << L"耗时：" << std::setprecision(1) << std::fixed << t << "s";
-	_wnd.SetTitle(woss.str());
+	const float color = _timer.Peek() / 3.0f + 1.5f;
+	_wnd.Gfx().ClearBuffer(sin(color), cos(color), 0.8f);
+	_wnd.Gfx().EndFrame();
 }

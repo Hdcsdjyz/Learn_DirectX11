@@ -1,20 +1,22 @@
 ﻿/**
  * @file Window.h
  * @author Lhxl
- * @date 2025-2-5
- * @version build7
+ * @date 2025-2-6
+ * @version build8
  */
 
 #ifndef WINDOW_H
 #define WINDOW_H
 
 #include <optional>
+#include <memory>
 
 #include "ST_Window.h"
 #include "MessageMap.h"
 #include "../ST_Exception.h"
 #include "Keyboard.h"
 #include "Mouse.h"
+#include "../Graphics/Graphics.h"
 
 class Window {
 public:
@@ -61,6 +63,7 @@ private:
 public:
 	void SetTitle(const std::wstring& title);
 	static std::optional<int> ProcessMessage();
+	Graphics& Gfx();
 public:
 	MessageMap mm;
 	Keyboard kbd;
@@ -69,6 +72,7 @@ private:
 	int _width;
 	int _height;
 	HWND _hWnd;
+	std::unique_ptr<Graphics> _pGfx;
 };
 
 /**

@@ -167,6 +167,7 @@
   <ItemGroup>
     <ClCompile Include="src\App\App.cpp" />
     <ClCompile Include="src\function.cpp" />
+    <ClCompile Include="src\Graphics\Graphics.cpp" />
     <ClCompile Include="src\ST_Exception.cpp" />
     <ClCompile Include="src\Timer\ST_Timer.cpp" />
     <ClCompile Include="src\Window\Keyboard.cpp" />
@@ -177,6 +178,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\App\App.h" />
+    <ClInclude Include="src\Graphics\Graphics.h" />
     <ClInclude Include="src\resource\resource.h" />
     <ClInclude Include="src\function.h" />
     <ClInclude Include="src\ST_Exception.h" />

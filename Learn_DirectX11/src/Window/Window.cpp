@@ -1,8 +1,8 @@
 ﻿/**
  * @file Window.cpp
  * @author Lhxl
- * @date 2025-2-5
- * @version build7
+ * @date 2025-2-6
+ * @version build8
  */
 
 #include <sstream>
@@ -67,6 +67,7 @@ Window::Window(int width, int height, LPCWSTR name) : _width(width), _height(hei
 		throw HWND_LAST_EXCEPT();
 	}
 	ShowWindow(_hWnd, SW_SHOWDEFAULT);
+	_pGfx = std::make_unique<Graphics>(_hWnd);
 }
 
 Window::~Window() {
@@ -167,6 +168,10 @@ std::optional<int> Window::ProcessMessage() {
 		DispatchMessage(&msg);
 	}
 	return {};
+}
+
+Graphics& Window::Gfx() {
+	return *_pGfx;
 }
 #pragma endregion
 
