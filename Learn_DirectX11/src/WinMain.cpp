@@ -1,9 +1,11 @@
-/**
+﻿/**
  * @file WinMain.cpp
- * @auther Lhxl
+ * @author Lhxl
  * @date 2025-2-3
  * @version build4
  */
+
+#include <sstream>
 
 #include "Window/Window.h"
 #include "ST_Exception.h"
@@ -17,6 +19,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		while ((gResult = GetMessage(&msg, nullptr, NULL, NULL)) > 0) {
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
+			while (!wnd.mouse.IsEmpty()) {
+				const auto e = wnd.mouse.Read();
+				if (e.GetType() == Mouse::Event::Type::MOVE) {
+					std::wostringstream woss;
+					woss << "Mouse pos: (" << wnd.mouse.GetPosX() << ',' << wnd.mouse.GetPosY() << ')' << std::endl;
+					wnd.SetTitle(woss.str());
+				}
+			}
 		}
 		if (gResult == -1) {
 			return -1;

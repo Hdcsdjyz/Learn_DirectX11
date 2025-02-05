@@ -1,6 +1,6 @@
-/**
+ï»¿/**
  * @file function.cpp
- * @auther Lhxl
+ * @author Lhxl
  * @date 2025-2-3
  * @version build2
  */
@@ -12,16 +12,16 @@
 #include <windows.h>
 
 /**
- * @brief ½«×Ö·û´®×ª»»Îª¿í×Ö·û´®Ö¸Õë
- * @param[in] str ×Ö·û´®
- * @return ×ª»»ºóµÄ¿í×Ö·û´®Ö¸Õë
+ * @brief å°†å­—ç¬¦ä¸²è½¬æ¢ä¸ºå®½å­—ç¬¦ä¸²æŒ‡é’ˆ
+ * @param[in] str å­—ç¬¦ä¸²
+ * @return è½¬æ¢åçš„å®½å­—ç¬¦ä¸²æŒ‡é’ˆ
  */
 LPWSTR str2lpwstr(const std::string& str) noexcept;
 
 /**
- * @brief ½«¿í×Ö·û´®Ö¸Õë×ª»»Îª×Ö·û´®Ö¸Õë
- * @param w_str ¿í×Ö·û´®Ö¸Õë
- * @return ×ª»»ºóµÄ×Ö·û´®Ö¸Õë
+ * @brief å°†å®½å­—ç¬¦ä¸²æŒ‡é’ˆè½¬æ¢ä¸ºå­—ç¬¦ä¸²æŒ‡é’ˆ
+ * @param w_str å®½å­—ç¬¦ä¸²æŒ‡é’ˆ
+ * @return è½¬æ¢åçš„å­—ç¬¦ä¸²æŒ‡é’ˆ
  */
 const char* lpwstr2lpcstr(LPCWSTR& w_str) noexcept;
 

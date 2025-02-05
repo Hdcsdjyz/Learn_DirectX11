@@ -30,6 +30,12 @@
     <ClCompile Include="src\ST_Exception.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\Window\Keyboard.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Window\Mouse.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Window\MessageMap.h">
@@ -48,6 +54,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\resource\resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Window\Keyboard.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Window\Mouse.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,15 +1,18 @@
-/**
+ï»¿/**
  * @file Window.h
- * @auther Lhxl
- * @date 2025-2-3
- * @version build4
+ * @author Lhxl
+ * @date 2025-2-4
+ * @version build6
  */
 
 #ifndef WINDOW_H
 #define WINDOW_H
 
 #include "ST_Window.h"
+#include "MessageMap.h"
 #include "../ST_Exception.h"
+#include "Keyboard.h"
+#include "Mouse.h"
 
 class Window {
 public:
@@ -32,6 +35,7 @@ private:
 		static WindowClass wndClass;
 		HINSTANCE hInst;
 	};
+private:
 	class Exception : public ST_Exception {
 		using ST_Exception::ST_Exception;
 	public:
@@ -52,6 +56,12 @@ private:
 	static LRESULT WINAPI HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept;
 	static LRESULT WINAPI HandleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept;
 	LRESULT HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept;
+public:
+	void SetTitle(const std::wstring& title);
+public:
+	MessageMap mm;
+	Keyboard kbd;
+	Mouse mouse;
 private:
 	int width;
 	int height;
@@ -59,11 +69,11 @@ private:
 };
 
 /**
- * @brief Å×³ö¡°ST_Exception¡±Òì³£
+ * @brief æŠ›å‡ºâ€œST_Exceptionâ€å¼‚å¸¸
  */
 #define HWND_EXCEPT(hr) Window::Exception(__LINE__, __FILEW__, hr)
  /**
-  * @brief Å×³ö×îºóÒ»¸öÒì³£
+  * @brief æŠ›å‡ºæœ€åä¸€ä¸ªå¼‚å¸¸
   */
 #define HWND_LAST_EXCEPT() Window::HrException(__LINE__, __FILEW__, GetLastError())
 

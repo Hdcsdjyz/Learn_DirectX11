@@ -1,6 +1,6 @@
-/**
+ï»¿/**
  * @file MessageMap.h
- * @auther Lhxl
+ * @author Lhxl
  * @date 2025-2-3
  * @version build3
  */
@@ -13,7 +13,7 @@
 #include <string>
 
 /**
- * @brief ´°¿ÚĞÅÏ¢
+ * @brief çª—å£ä¿¡æ¯
  */
 class MessageMap
 {

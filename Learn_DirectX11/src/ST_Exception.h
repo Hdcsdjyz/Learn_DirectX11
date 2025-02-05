@@ -1,6 +1,6 @@
-/**
+﻿/**
  * @file ST_Exception.h
- * @auther Lhxl
+ * @author Lhxl
  * @date 2025-2-3
  * @version build4
  */

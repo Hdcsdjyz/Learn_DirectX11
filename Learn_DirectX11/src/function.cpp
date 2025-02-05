@@ -1,6 +1,6 @@
-/***
+﻿/***
  * @file function.cpp
- * @auther Lhxl
+ * @author Lhxl
  * @date 2025-2-3
  * @version build2
  ***/
