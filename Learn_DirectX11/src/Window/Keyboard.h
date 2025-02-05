@@ -1,8 +1,8 @@
 ﻿/**
  * @file Keyboard.h
  * @author Lhxl
- * @date 2025-2-4
- * @version build6
+ * @date 2025-2-5
+ * @version build7
  */
 
 #ifndef KEYBOARD_H
@@ -29,8 +29,8 @@ public:
 		bool IsValid() const noexcept;
 		unsigned char GetCode() const noexcept;
 	private:
-		Type type;
-		unsigned char code;
+		Type _type;
+		unsigned char _code;
 	};
 public:
 	Keyboard() = default;
@@ -52,19 +52,19 @@ public:
 	void DisableAutorepeat() noexcept;
 	bool IsAutorepeatEnable() const noexcept;
 private:
-	void OnKeyPressed(unsigned char keycode) noexcept;
-	void OnKeyReleased(unsigned char keycode) noexcept;
-	void OnChar(char character) noexcept;
-	void ClearState() noexcept;
+	void _OnKeyPressed(unsigned char keycode) noexcept;
+	void _OnKeyReleased(unsigned char keycode) noexcept;
+	void _OnChar(char character) noexcept;
+	void _ClearState() noexcept;
 	template<typename T>
-	static void TrimBuffer(std::queue<T>& buffer) noexcept;
+	static void _TrimBuffer(std::queue<T>& buffer) noexcept;
 private:
-	static constexpr unsigned int nKeys = 256u;
-	static constexpr unsigned int bufferSize = 16u;
-	bool autorepeat = false;
-	std::bitset<nKeys> keystates;
-	std::queue<Event> keybuffer;
-	std::queue<char> charbuffer;
+	static constexpr unsigned int _nKeys = 256u;
+	static constexpr unsigned int _bufferSize = 16u;
+	bool _autorepeat = false;
+	std::bitset<_nKeys> _keystates;
+	std::queue<Event> _keybuffer;
+	std::queue<char> _charbuffer;
 };
 
 #endif

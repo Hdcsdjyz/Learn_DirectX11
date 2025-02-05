@@ -1,8 +1,8 @@
 ﻿/**
  * @file Mouse.h
  * @author Lhxl
- * @date 2025-2-4
- * @version build6
+ * @date 2025-2-5
+ * @version build7
  */
 
 #ifndef MOUSE_H
@@ -39,11 +39,11 @@ public:
 		bool IsLBPressed() const noexcept;
 		bool IsRBPressed() const noexcept;
 	private:
-		Type type;
-		bool lbPressed;
-		bool rbPressed;
-		int x;
-		int y;
+		Type _type;
+		bool _lbPressed;
+		bool _rbPressed;
+		int _x;
+		int _y;
 	};
 public:
 	Mouse() = default;
@@ -60,26 +60,26 @@ public:
 	bool IsEmpty() const noexcept;
 	void Flush() noexcept;
 private:
-	void OnMouseMove(int x, int y) noexcept;
-	void OnLBPressed(int x, int y) noexcept;
-	void OnLBReleased(int x, int y) noexcept;
-	void OnRBPressed(int x, int y) noexcept;
-	void OnRBReleased(int x, int y) noexcept;
-	void OnWheelUp(int x, int y) noexcept;
-	void OnWheelDown(int x, int y) noexcept;
-	void OnMouseLeave() noexcept;
-	void OnMouseEnter() noexcept;
-	void TrimBuffer() noexcept;
-	void OnWheelDelta(int x, int y, int delta) noexcept;
+	void _OnMouseMove(int x, int y) noexcept;
+	void _OnLBPressed(int x, int y) noexcept;
+	void _OnLBReleased(int x, int y) noexcept;
+	void _OnRBPressed(int x, int y) noexcept;
+	void _OnRBReleased(int x, int y) noexcept;
+	void _OnWheelUp(int x, int y) noexcept;
+	void _OnWheelDown(int x, int y) noexcept;
+	void _OnMouseLeave() noexcept;
+	void _OnMouseEnter() noexcept;
+	void _TrimBuffer() noexcept;
+	void _OnWheelDelta(int x, int y, int delta) noexcept;
 private:
-	static constexpr unsigned int bufferSize = 16u;
-	int x;
-	int y;
-	bool lbPressed = false;
-	bool rbPressed = false;
-	bool inWindow = false;
-	int wheelDelta = 0;
-	std::queue<Event> buffer;
+	static constexpr unsigned int _bufferSize = 16u;
+	int _x = 0;
+	int _y = 0;
+	bool _lbPressed = false;
+	bool _rbPressed = false;
+	bool _inWindow = false;
+	int _wheelDelta = 0;
+	std::queue<Event> _buffer;
 };
 
 #endif

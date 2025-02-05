@@ -165,8 +165,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\App\App.cpp" />
     <ClCompile Include="src\function.cpp" />
     <ClCompile Include="src\ST_Exception.cpp" />
+    <ClCompile Include="src\Timer\ST_Timer.cpp" />
     <ClCompile Include="src\Window\Keyboard.cpp" />
     <ClCompile Include="src\Window\MessageMap.cpp" />
     <ClCompile Include="src\Window\Mouse.cpp" />
@@ -174,9 +176,11 @@
     <ClCompile Include="src\WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\App\App.h" />
     <ClInclude Include="src\resource\resource.h" />
     <ClInclude Include="src\function.h" />
     <ClInclude Include="src\ST_Exception.h" />
+    <ClInclude Include="src\Timer\ST_Timer.h" />
     <ClInclude Include="src\Window\Keyboard.h" />
     <ClInclude Include="src\Window\MessageMap.h" />
     <ClInclude Include="src\Window\Mouse.h" />

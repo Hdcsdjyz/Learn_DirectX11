@@ -1,12 +1,14 @@
 ﻿/**
  * @file Window.h
  * @author Lhxl
- * @date 2025-2-4
- * @version build6
+ * @date 2025-2-5
+ * @version build7
  */
 
 #ifndef WINDOW_H
 #define WINDOW_H
+
+#include <optional>
 
 #include "ST_Window.h"
 #include "MessageMap.h"
@@ -21,28 +23,28 @@ public:
 	Window& operator=(const Window&) = delete;
 	~Window();
 private:
-	class WindowClass {
+	class _WindowClass {
 	private:
-		WindowClass() noexcept;
-		WindowClass(const WindowClass&) = delete;
-		WindowClass& operator=(const WindowClass&) = delete;
-		~WindowClass();
+		_WindowClass() noexcept;
+		_WindowClass(const _WindowClass&) = delete;
+		_WindowClass& operator=(const _WindowClass&) = delete;
+		~_WindowClass();
 	public:
 		static LPCWSTR GetName() noexcept;
 		static HINSTANCE GetInstance() noexcept;
 	private:
-		static constexpr LPCWSTR wndClassName = L"SandTable";
-		static WindowClass wndClass;
-		HINSTANCE hInst;
+		static constexpr LPCWSTR _wndClassName = L"SandTable";
+		static _WindowClass _wndClass;
+		HINSTANCE _hInst;
 	};
 private:
-	class Exception : public ST_Exception {
+	class _Exception : public ST_Exception {
 		using ST_Exception::ST_Exception;
 	public:
 		static std::wstring TranslateErrorCode(HRESULT hr) noexcept;
 	};
 public:
-	class HrException : public Exception {
+	class HrException : public _Exception {
 	public:
 		HrException(int line, LPCWSTR file, HRESULT hr) noexcept;
 		const char* what() const noexcept override;
@@ -50,22 +52,23 @@ public:
 		HRESULT GetErrorCode() const noexcept;
 		std::wstring GetErrorDescription() const noexcept;
 	private:
-		HRESULT hr;
+		HRESULT _hr;
 	};
 private:
-	static LRESULT WINAPI HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept;
-	static LRESULT WINAPI HandleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept;
-	LRESULT HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept;
+	static LRESULT WINAPI _HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept;
+	static LRESULT WINAPI _HandleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept;
+	LRESULT _HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept;
 public:
 	void SetTitle(const std::wstring& title);
+	static std::optional<int> ProcessMessage();
 public:
 	MessageMap mm;
 	Keyboard kbd;
 	Mouse mouse;
 private:
-	int width;
-	int height;
-	HWND hWnd;
+	int _width;
+	int _height;
+	HWND _hWnd;
 };
 
 /**

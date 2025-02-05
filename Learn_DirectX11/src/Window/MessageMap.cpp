@@ -1,8 +1,8 @@
 ﻿/**
  * @file MessageMap.cpp
  * @author Lhxl
- * @date 2025-2-3
- * @version build3
+ * @date 2025-2-5
+ * @version build7
  */
 
 #include <sstream>
@@ -21,7 +21,7 @@
 #define REGISTER_MESSAGE(msg) {msg, #msg}
 
 MessageMap::MessageMap()
-	: map({ 
+	: _map({ 
 	REGISTER_MESSAGE(WM_NULL),
 	REGISTER_MESSAGE(WM_CREATE),
 	REGISTER_MESSAGE(WM_DESTROY),
@@ -168,9 +168,9 @@ MessageMap::MessageMap()
 
 LPWSTR MessageMap::operator()(DWORD msg, LPARAM lp, WPARAM wp) const {
 	constexpr int firstColWidth = 25;
-	const auto i = map.find(msg);
+	const auto i = _map.find(msg);
 	std::ostringstream oss;
-	if (i != map.end()) {
+	if (i != _map.end()) {
 		oss << std::left << std::setw(firstColWidth) << i->second << std::right;
 	} else {
 		std::ostringstream padss;
@@ -179,7 +179,6 @@ LPWSTR MessageMap::operator()(DWORD msg, LPARAM lp, WPARAM wp) const {
 	}
 	oss << "    LP: 0x" << std::uppercase << std::hex << std::setfill('0') << std::setw(8) << lp;
 	oss << "    WP: 0x" << std::uppercase << std::hex << std::setfill('0') << std::setw(8) << wp << std::endl;
-	
 	std::string str = oss.str();
 	return str2lpwstr(str);
 }
