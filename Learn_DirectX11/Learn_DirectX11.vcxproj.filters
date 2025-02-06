@@ -21,13 +21,13 @@
     <ClCompile Include="src\Window\MessageMap.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\function.cpp">
+    <ClCompile Include="src\ST_General\function.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\Window\Window.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\ST_Exception.cpp">
+    <ClCompile Include="src\ST_General\ST_Exception.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\Window\Keyboard.cpp">
@@ -45,21 +45,24 @@
     <ClCompile Include="src\Graphics\Graphics.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\Graphics\DxgiInfoManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Window\MessageMap.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\function.h">
+    <ClInclude Include="src\ST_General\function.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\Window\ST_Window.h">
+    <ClInclude Include="src\ST_General\ST_Window.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Window\Window.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\ST_Exception.h">
+    <ClInclude Include="src\ST_General\ST_Exception.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\resource\resource.h">
@@ -78,6 +81,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Graphics\Graphics.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\DxgiInfoManager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\GraphicsExceptionMacro.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

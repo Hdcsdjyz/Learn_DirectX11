@@ -11,7 +11,7 @@
 #include <exception>
 #include <string>
 
-#include "Window/ST_Window.h"
+#include "ST_Window.h"
 #include "function.h"
 
 class ST_Exception : public std::exception {
@@ -21,13 +21,13 @@ public:
 	const char* what() const noexcept override;
 	virtual const char* GetType() const noexcept;
 	int GetLine() const noexcept;
-	const std::wstring& Getfile() const noexcept;
+	const std::wstring& GetFile() const noexcept;
 	std::wstring GetOriginString() const noexcept;
 protected:
-	mutable std::wstring whatBuffer;
+	mutable std::wstring _whatBuffer;
 private:
-	int line;
-	std::wstring file;
+	int _line;
+	std::wstring _file;
 };
 
 #endif

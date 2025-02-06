@@ -98,6 +98,7 @@
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <FloatingPointModel>Fast</FloatingPointModel>
+      <ExceptionHandling>Async</ExceptionHandling>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -117,6 +118,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <ExceptionHandling>Async</ExceptionHandling>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -137,6 +139,7 @@
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <FloatingPointModel>Fast</FloatingPointModel>
+      <ExceptionHandling>SyncCThrow</ExceptionHandling>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -156,6 +159,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <ExceptionHandling>Async</ExceptionHandling>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -166,9 +170,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\App\App.cpp" />
-    <ClCompile Include="src\function.cpp" />
+    <ClCompile Include="src\Graphics\DxgiInfoManager.cpp" />
+    <ClCompile Include="src\ST_General\function.cpp" />
     <ClCompile Include="src\Graphics\Graphics.cpp" />
-    <ClCompile Include="src\ST_Exception.cpp" />
+    <ClCompile Include="src\ST_General\ST_Exception.cpp" />
     <ClCompile Include="src\Timer\ST_Timer.cpp" />
     <ClCompile Include="src\Window\Keyboard.cpp" />
     <ClCompile Include="src\Window\MessageMap.cpp" />
@@ -178,15 +183,17 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\App\App.h" />
+    <ClInclude Include="src\Graphics\DxgiInfoManager.h" />
     <ClInclude Include="src\Graphics\Graphics.h" />
+    <ClInclude Include="src\Graphics\GraphicsExceptionMacro.h" />
     <ClInclude Include="src\resource\resource.h" />
-    <ClInclude Include="src\function.h" />
-    <ClInclude Include="src\ST_Exception.h" />
+    <ClInclude Include="src\ST_General\function.h" />
+    <ClInclude Include="src\ST_General\ST_Exception.h" />
     <ClInclude Include="src\Timer\ST_Timer.h" />
     <ClInclude Include="src\Window\Keyboard.h" />
     <ClInclude Include="src\Window\MessageMap.h" />
     <ClInclude Include="src\Window\Mouse.h" />
-    <ClInclude Include="src\Window\ST_Window.h" />
+    <ClInclude Include="src\ST_General\ST_Window.h" />
     <ClInclude Include="src\Window\Window.h" />
   </ItemGroup>
   <ItemGroup>

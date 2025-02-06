@@ -1,12 +1,12 @@
 ﻿/**
  * @file Mouse.cpp
  * @author Lhxl
- * @date 2025-2-5
- * @version build7
+ * @date 2025-2-7
+ * @version build9
  */
 
 #include "Mouse.h"
-#include "ST_Window.h"
+#include "../ST_General/ST_Window.h"
 
 #pragma region class Mouse::Event
 Mouse::Event::Event() noexcept
@@ -71,23 +71,22 @@ bool Mouse::IsInWindow() const noexcept {
 	return _inWindow;
 }
 
-Mouse::Event Mouse::Read() noexcept {
-	if (_buffer.size()) {
-		Mouse::Event e = _buffer.front();
-		_buffer.pop();
-		return e;
-	} else {
-		return Mouse::Event();
-	}
-}
+//std::optional<Mouse::Event> Mouse::Read() noexcept {
+//	if (_buffer.size() > 0u) {
+//		Mouse::Event e = _buffer.front();
+//		_buffer.pop();
+//		return e;
+//	}
+//	return {};
+//}
 
 bool Mouse::IsEmpty() const noexcept {
 	return _buffer.empty();
 }
 
-void Mouse::Flush() noexcept {
-	_buffer = std::queue<Event>();
-}
+//void Mouse::Flush() noexcept {
+//	_buffer = std::queue<Event>();
+//}
 
 void Mouse::_OnMouseMove(int new_x, int new_y) noexcept {
 	_x = new_x;

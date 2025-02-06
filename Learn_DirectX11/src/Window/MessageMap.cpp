@@ -1,15 +1,15 @@
 ﻿/**
  * @file MessageMap.cpp
  * @author Lhxl
- * @date 2025-2-5
- * @version build7
+ * @date 2025-2-7
+ * @version build9
  */
 
 #include <sstream>
 #include <iomanip>
 
 #include "MessageMap.h"
-#include "../function.h"
+#include "../ST_General/function.h"
 
 #define WM_UAHDESTROYWINDOW			0x0090
 #define WM_UAHDRAWMENU				0x0091

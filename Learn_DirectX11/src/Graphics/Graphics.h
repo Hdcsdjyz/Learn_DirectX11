@@ -1,17 +1,58 @@
 ﻿/**
  * @file ST_Timer.cpp
  * @author Lhxl
- * @date 2025-2-6
- * @version build8
+ * @date 2025-2-7
+ * @version build9
  */
 
 #ifndef GRAPHICS_H
 #define GRAPHICS_H
 
-#include "../Window/ST_Window.h"
-#include <d3d11_1.h>
+#include <vector>
+
+#include "../ST_General/ST_Window.h"
+#include "../ST_General/ST_Exception.h"
+#include "DxgiInfoManager.h"
+
 
 class Graphics {
+public:
+	class Exception : public ST_Exception {
+		using ST_Exception::ST_Exception;
+	};
+public:
+	class HrException : public Exception {
+	public:
+		HrException(int line, LPCWSTR file, HRESULT hr, std::vector<std::wstring> infoMsgs = {}) noexcept;
+	public:
+		const char* what() const noexcept override;
+		const char* GetType() const noexcept override;
+		HRESULT GetErrorCode() const noexcept;
+		std::wstring GetErrorString() const noexcept;
+		std::wstring GetErrorInfo() const noexcept;
+	private:
+		HRESULT _hr;
+		std::wstring _info;
+	};
+public:
+	class DeviceException : public HrException {
+		using HrException::HrException;
+	public:
+		const char* GetType() const noexcept override;
+	private:
+		std::wstring _reason;
+	};
+public:
+	class InfoException : public Exception {
+	public:
+		InfoException(int line, LPCWSTR file, std::vector<std::wstring> infoMsgs = {}) noexcept;
+	public:
+		const char* what() const noexcept override;
+		const char* GetType() const noexcept override;
+		std::wstring GetErrorInfo() const noexcept;
+	private:
+		std::wstring _info;
+	};
 public:
 	Graphics(HWND hWnd);
 	Graphics(const Graphics&) = delete;
@@ -25,6 +66,9 @@ private:
 	IDXGISwapChain* _pSwap = nullptr;
 	ID3D11DeviceContext* _pContext = nullptr;
 	ID3D11RenderTargetView* _pTarget = nullptr;
+#ifndef NDEBUG
+	DxgiInfoManager _infoManager;
+#endif
 };
 
 #endif

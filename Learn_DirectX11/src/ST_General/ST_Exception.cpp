@@ -9,7 +9,7 @@
 
 #include"ST_Exception.h"
 
-ST_Exception::ST_Exception(int line, LPCWSTR file) noexcept : line(line), file(file) {
+ST_Exception::ST_Exception(int line, LPCWSTR file) noexcept : _line(line), _file(file) {
 
 }
 
@@ -17,8 +17,8 @@ const char* ST_Exception::what() const noexcept {
 	std::wostringstream woss;
 	woss << GetType() << std::endl
 		 << GetOriginString();
-	whatBuffer = woss.str();
-	LPCWSTR w_str = whatBuffer.c_str();
+	_whatBuffer = woss.str();
+	LPCWSTR w_str = _whatBuffer.c_str();
 	return lpwstr2lpcstr(w_str);
 }
 
@@ -27,17 +27,17 @@ const char* ST_Exception::GetType() const noexcept {
 }
 
 int ST_Exception::GetLine() const noexcept {
-	return line;
+	return _line;
 }
 
-const std::wstring& ST_Exception::Getfile() const noexcept {
-	return file;
+const std::wstring& ST_Exception::GetFile() const noexcept {
+	return _file;
 }
 
 std::wstring ST_Exception::GetOriginString() const noexcept {
 	std::wostringstream woss;
-	woss << "[File]: " << file << std::endl
-		 << "[Line]: " << line;
+	woss << L"[文件]: " << _file << std::endl
+		 << L"[行号]: " << _line;
 	std::wstring w_str = woss.str();
 	return w_str;
 }

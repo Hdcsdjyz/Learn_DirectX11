@@ -1,8 +1,8 @@
 ﻿/**
  * @file App.h
  * @author Lhxl
- * @date 2025-2-6
- * @version build8
+ * @date 2025-2-7
+ * @version build9
  */
 
 #ifndef APP_H
@@ -14,6 +14,7 @@
 class App {
 public:
 	App();
+	~App() = default;
 public:
 	int Go();
 private:

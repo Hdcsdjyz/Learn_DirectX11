@@ -1,14 +1,15 @@
 ﻿/**
  * @file Mouse.h
  * @author Lhxl
- * @date 2025-2-5
- * @version build7
+ * @date 2025-2-7
+ * @version build9
  */
 
 #ifndef MOUSE_H
 #define MOUSE_H
 
 #include <queue>
+#include <optional>
 
 class Mouse {
 	friend class Window;
@@ -56,9 +57,9 @@ public:
 	bool IsLBPressed() const noexcept;
 	bool IsRBPressed() const noexcept;
 	bool IsInWindow() const noexcept;
-	Mouse::Event Read() noexcept;
+	//std::optional<Mouse::Event> Read() noexcept;
 	bool IsEmpty() const noexcept;
-	void Flush() noexcept;
+	//void Flush() noexcept;
 private:
 	void _OnMouseMove(int x, int y) noexcept;
 	void _OnLBPressed(int x, int y) noexcept;

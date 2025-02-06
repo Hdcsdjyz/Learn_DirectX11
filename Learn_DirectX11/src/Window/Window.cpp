@@ -1,14 +1,14 @@
 ﻿/**
  * @file Window.cpp
  * @author Lhxl
- * @date 2025-2-6
- * @version build8
+ * @date 2025-2-7
+ * @version build9
  */
 
 #include <sstream>
 
 #include "Window.h"
-#include "../function.h"
+#include "../ST_General/function.h"
 #include "../resource/resource.h"
 
 Window::_WindowClass Window::_WindowClass::_wndClass;
@@ -22,12 +22,12 @@ Window::_WindowClass::_WindowClass() noexcept : _hInst(GetModuleHandle(nullptr))
 	wc.cbClsExtra = 0;
 	wc.cbWndExtra = 0;
 	wc.hInstance = GetInstance();
-	wc.hIcon = static_cast<HICON>(LoadImage(_hInst, MAKEINTRESOURCE(IDI_ICON_TITLE), IMAGE_ICON, 32, 32, 0));
+	wc.hIcon = static_cast<HICON>(LoadImage(GetInstance(), MAKEINTRESOURCE(IDI_ICON_TITLE), IMAGE_ICON, 32, 32, 0));
 	wc.hCursor = nullptr;
 	wc.hbrBackground = nullptr;
 	wc.lpszMenuName = nullptr;
 	wc.lpszClassName = GetName();
-	wc.hIconSm = static_cast<HICON>(LoadImage(_hInst, MAKEINTRESOURCE(IDI_ICON_TITLE), IMAGE_ICON, 16, 16, 0));
+	wc.hIconSm = static_cast<HICON>(LoadImage(GetInstance(), MAKEINTRESOURCE(IDI_ICON_TITLE), IMAGE_ICON, 16, 16, 0));
 	RegisterClassEx(&wc);
 }
 
@@ -91,13 +91,15 @@ LRESULT WINAPI Window::_HandleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARA
 }
 
 LRESULT Window::_HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept {
-	LPWSTR debugstring = mm(msg, lParam, wParam);
-	OutputDebugString(debugstring);
-	delptr(debugstring);
+	//MessageMap mm;
+	//LPWSTR debugstring = mm(msg, lParam, wParam);
+	//OutputDebugString(debugstring);
+	//delptr(debugstring);
 	switch (msg) {
 	case WM_CLOSE:
 		PostQuitMessage(0);
 		return 0;
+	// 键盘
 	case WM_KEYDOWN:
 	case WM_SYSKEYDOWN:
 		if (!(lParam & 0x40000000) || kbd.IsAutorepeatEnable()) {
@@ -111,6 +113,7 @@ LRESULT Window::_HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) no
 	case WM_CHAR:
 		kbd._OnChar(static_cast<unsigned char>(wParam));
 		break;
+	// 鼠标
 	case WM_MOUSEMOVE:
 		const POINTS pt0 = MAKEPOINTS(lParam);
 		if (pt0.x >= 0 && pt0.x < _width && pt0.y >= 0 && pt0.y < _height) {
@@ -158,11 +161,11 @@ void Window::SetTitle(const std::wstring& title) {
 	}
 }
 
-std::optional<int> Window::ProcessMessage() {
+std::optional<int> Window::ProcessMessage() noexcept {
 	MSG msg;
 	while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
 		if (msg.message == WM_QUIT) {
-			return msg.wParam;
+			return (int)msg.wParam;
 		}
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
@@ -171,12 +174,15 @@ std::optional<int> Window::ProcessMessage() {
 }
 
 Graphics& Window::Gfx() {
+	if (!_pGfx) {
+		throw HWND_NOGFX_EXCEPT();
+	}
 	return *_pGfx;
 }
 #pragma endregion
 
 #pragma region class Window::Exception
-std::wstring Window::_Exception::TranslateErrorCode(HRESULT hr) noexcept {
+std::wstring Window::Exception::TranslateErrorCode(HRESULT hr) noexcept {
 	LPWSTR pMsgBuf = nullptr;
 	const DWORD nMsgLen = FormatMessage(
 		FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
@@ -197,28 +203,34 @@ std::wstring Window::_Exception::TranslateErrorCode(HRESULT hr) noexcept {
 #pragma endregion
 
 #pragma region class Window::HrException
-Window::HrException::HrException(int line, LPCWSTR file, HRESULT hr) noexcept : _Exception(line, file), _hr(hr) {}
+Window::HrException::HrException(int line, LPCWSTR file, HRESULT hr) noexcept : Exception(line, file), _hr(hr) {}
 
 const char* Window::HrException::what() const noexcept {
-	std::wostringstream oss;
-	oss << GetType() << std::endl
-		<< "[ERROR Code]: 0x" << std::hex << std::uppercase << GetErrorCode() << std::dec << "(" << (unsigned long)GetErrorCode() << ")" << std::endl
-		<< "[Description]: " << GetErrorDescription() << std::endl
+	std::wostringstream woss;
+	woss << GetType() << std::endl
+		<< L"【错误码】：0x" << std::hex << std::uppercase << GetErrorCode() << std::endl
+		<< L"【错误描述】：" << GetErrorInfo() << std::endl
 		<< GetOriginString();
-	whatBuffer = oss.str();
-	LPCWSTR w_str = whatBuffer.c_str();
+	_whatBuffer = woss.str();
+	LPCWSTR w_str = _whatBuffer.c_str();
 	return lpwstr2lpcstr(w_str);
 }
 
 const char* Window::HrException::GetType() const noexcept {
-	return "ST_Window_Exception";
+	return "Window::HrException";
 }
 
 HRESULT Window::HrException::GetErrorCode() const noexcept {
 	return _hr;
 }
 
-std::wstring Window::HrException::GetErrorDescription() const noexcept {
+std::wstring Window::HrException::GetErrorInfo() const noexcept {
 	return TranslateErrorCode(_hr);
+}
+#pragma endregion
+
+#pragma region class Window::NoGfxException
+const char* Window::NoGfxException::GetType() const noexcept {
+	return "Window::NoGfxException";
 }
 #pragma endregion
