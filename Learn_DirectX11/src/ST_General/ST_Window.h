@@ -1,8 +1,8 @@
 ﻿/**
  * @file ST_Window.h
  * @author Lhxl
- * @date 2025-2-6
- * @version build9
+ * @date 2025-2-7
+ * @version build10
  */
 
 #ifndef ST_WINDOW_H
@@ -44,7 +44,6 @@
 #define NOPROXYSTUB
 #define NOIMAGE
 #define NOTAPE
-#define STRICT
 
 #include <windows.h>
 #include <d3d11_1.h>

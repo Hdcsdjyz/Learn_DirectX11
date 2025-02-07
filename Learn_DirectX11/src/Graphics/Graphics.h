@@ -2,13 +2,14 @@
  * @file ST_Timer.cpp
  * @author Lhxl
  * @date 2025-2-7
- * @version build9
+ * @version build10
  */
 
 #ifndef GRAPHICS_H
 #define GRAPHICS_H
 
 #include <vector>
+#include <wrl.h>
 
 #include "../ST_General/ST_Window.h"
 #include "../ST_General/ST_Exception.h"
@@ -57,15 +58,15 @@ public:
 	Graphics(HWND hWnd);
 	Graphics(const Graphics&) = delete;
 	Graphics& operator=(const Graphics&) = delete;
-	~Graphics();
+	~Graphics() = default;
 public:
 	void EndFrame();
 	void ClearBuffer(float red, float green, float blue) noexcept;
 private:
-	ID3D11Device* _pDevice = nullptr;
-	IDXGISwapChain* _pSwap = nullptr;
-	ID3D11DeviceContext* _pContext = nullptr;
-	ID3D11RenderTargetView* _pTarget = nullptr;
+	Microsoft::WRL::ComPtr<ID3D11Device> _pDevice;
+	Microsoft::WRL::ComPtr<IDXGISwapChain> _pSwap;
+	Microsoft::WRL::ComPtr<ID3D11DeviceContext> _pContext;
+	Microsoft::WRL::ComPtr<ID3D11RenderTargetView> _pTarget;
 #ifndef NDEBUG
 	DxgiInfoManager _infoManager;
 #endif

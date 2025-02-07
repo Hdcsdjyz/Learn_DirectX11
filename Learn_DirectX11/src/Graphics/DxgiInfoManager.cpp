@@ -2,7 +2,7 @@
  * @file DxgiInfoManager.cpp
  * @author Lhxl
  * @date 2025-2-7
- * @version build9
+ * @version build10
  */
 
 #pragma comment(lib, "dxguid.lib")
@@ -21,13 +21,7 @@ DxgiInfoManager::DxgiInfoManager() {
 		throw HWND_LAST_EXCEPT();
 	}
 	HRESULT hr;
-	GFX_THROW_NOINFO(DxgiGetDebugInterface(__uuidof(IDXGIInfoQueue), reinterpret_cast<void**>(&_pDxgiInfoQueue)));
-}
-
-DxgiInfoManager::~DxgiInfoManager() {
-	if (_pDxgiInfoQueue != nullptr) {
-		_pDxgiInfoQueue->Release();
-	}
+	GFX_THROW_NOINFO(DxgiGetDebugInterface(__uuidof(IDXGIInfoQueue), &_pDxgiInfoQueue));
 }
 
 void DxgiInfoManager::Set() noexcept {
@@ -39,7 +33,7 @@ std::vector<std::wstring> DxgiInfoManager::GetMessages() const {
 	const auto end = _pDxgiInfoQueue->GetNumStoredMessages(DXGI_DEBUG_ALL);
 	for (auto i = _next; i < end; i++) {
 		HRESULT hr;
-		SIZE_T messageLength;
+		SIZE_T messageLength = 0;
 		GFX_THROW_NOINFO(_pDxgiInfoQueue->GetMessage(DXGI_DEBUG_ALL, i, nullptr, &messageLength));
 		auto bytes = std::make_unique<byte[]>(messageLength);
 		auto pMessage = reinterpret_cast<DXGI_INFO_QUEUE_MESSAGE*>(bytes.get());

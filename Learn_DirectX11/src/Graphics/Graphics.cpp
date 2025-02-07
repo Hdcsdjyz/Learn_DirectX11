@@ -2,7 +2,7 @@
  * @file ST_Timer.cpp
  * @author Lhxl
  * @date 2025-2-7
- * @version build9
+ * @version build10
  */
 
 #pragma comment(lib, "d3d11.lib")
@@ -43,24 +43,9 @@ Graphics::Graphics(HWND hWnd) {
 		nullptr,
 		&_pContext
 	));
-	ID3D11Resource* pBackBuffer = nullptr;
-	GFX_THROW_INFO(_pSwap->GetBuffer(NULL, __uuidof(ID3D11Resource), reinterpret_cast<void**>(&pBackBuffer)));
-	GFX_THROW_INFO(_pDevice->CreateRenderTargetView(pBackBuffer, nullptr, &_pTarget));
-}
-
-Graphics::~Graphics() {
-	if (_pContext != nullptr) {
-		_pContext->Release();
-	}
-	if (_pSwap != nullptr) {
-		_pSwap->Release();
-	}
-	if (_pDevice != nullptr) {
-		_pDevice->Release();
-	}
-	if (_pTarget != nullptr) {
-		_pTarget->Release();
-	}
+	Microsoft::WRL::ComPtr<ID3D11Resource> pBackBuffer = nullptr;
+	GFX_THROW_INFO(_pSwap->GetBuffer(NULL, __uuidof(ID3D11Resource), &pBackBuffer));
+	GFX_THROW_INFO(_pDevice->CreateRenderTargetView(pBackBuffer.Get(), nullptr, &_pTarget));
 }
 
 void Graphics::EndFrame() {
@@ -79,7 +64,7 @@ void Graphics::EndFrame() {
 
 void Graphics::ClearBuffer(float red, float green, float blue) noexcept {
 	const float color[] = { red, green, blue, 1.0f };
-	_pContext->ClearRenderTargetView(_pTarget, color);
+	_pContext->ClearRenderTargetView(_pTarget.Get(), color);
 }
 
 #pragma region class Graphics::HrException
