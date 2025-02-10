@@ -1,8 +1,8 @@
 ﻿/**
  * @file App.cpp
  * @author Lhxl
- * @date 2025-2-6
- * @version build8
+ * @date 2025-2-10
+ * @version build11
  */
 
 #include <sstream>
@@ -23,5 +23,6 @@ int App::Go() {
 void App::_DoFrame() {
 	const float color = _timer.Peek() / 3.0f + 1.5f;
 	_wnd.Gfx().ClearBuffer(sin(color), cos(color), 0.8f);
+	_wnd.Gfx().DrawTestTriangle();
 	_wnd.Gfx().EndFrame();
 }

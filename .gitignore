@@ -361,3 +361,5 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/Learn_DirectX11/Shader/PixelShader.cso
+/Learn_DirectX11/Shader/VertexShader.cso

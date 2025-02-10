@@ -1,8 +1,8 @@
 ﻿/**
  * @file ST_Timer.cpp
  * @author Lhxl
- * @date 2025-2-7
- * @version build10
+ * @date 2025-2-10
+ * @version build11
  */
 
 #ifndef GRAPHICS_H
@@ -14,7 +14,6 @@
 #include "../ST_General/ST_Window.h"
 #include "../ST_General/ST_Exception.h"
 #include "DxgiInfoManager.h"
-
 
 class Graphics {
 public:
@@ -62,6 +61,7 @@ public:
 public:
 	void EndFrame();
 	void ClearBuffer(float red, float green, float blue) noexcept;
+	void DrawTestTriangle();
 private:
 	Microsoft::WRL::ComPtr<ID3D11Device> _pDevice;
 	Microsoft::WRL::ComPtr<IDXGISwapChain> _pSwap;
