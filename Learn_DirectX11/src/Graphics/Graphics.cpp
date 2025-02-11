@@ -1,8 +1,8 @@
 ﻿/**
  * @file ST_Timer.cpp
  * @author Lhxl
- * @date 2025-2-10
- * @version build11
+ * @date 2025-2-11
+ * @version build12
  */
 
 #pragma comment(lib, "d3d11.lib")
@@ -71,13 +71,24 @@ void Graphics::ClearBuffer(float red, float green, float blue) noexcept {
 
 void Graphics::DrawTestTriangle() {
 	struct Vertex {
-		float x;
-		float y;
+		struct {
+			float x;
+			float y;
+		} pos;
+		struct {
+			unsigned char r;
+			unsigned char g;
+			unsigned char b;
+			unsigned char a;
+		} color;
 	};
 	const Vertex vertices[] = {
-		{ 0.0f, 0.5f },
-		{ 0.5f, -0.5f },
-		{ -0.5f, -0.5f }
+		{ 0.0f, 0.5f, 255, 0, 0, 255 },
+		{ 0.5f, -0.5f, 0, 255, 0, 255 },
+		{ -0.5f, -0.5f, 0, 0, 255, 255 },
+		{ -0.3f, 0.3f, 0, 255, 0, 255 },
+		{ 0.3f, 0.3f, 0, 0, 255, 255 },
+		{ 0.0f, -0.8f, 255, 0, 0, 255 }
 	};
 	Microsoft::WRL::ComPtr<ID3D11Buffer> pVertexBuffer;
 	D3D11_BUFFER_DESC bd = {};
@@ -95,6 +106,26 @@ void Graphics::DrawTestTriangle() {
 	UINT offset = 0u;
 	_pContext->IASetVertexBuffers(0u, 1u, pVertexBuffer.GetAddressOf(), &stride, &offset);
 
+	// IndexBuffer
+	const unsigned short indices[]{
+		0, 1, 2,
+		0, 2, 3,
+		0, 4, 1,
+		2, 1, 5
+	};
+	Microsoft::WRL::ComPtr<ID3D11Buffer> pIndexBuffer;
+	D3D11_BUFFER_DESC ibd = {};
+	ibd.BindFlags = D3D11_BIND_INDEX_BUFFER;
+	ibd.Usage = D3D11_USAGE_DEFAULT;
+	ibd.CPUAccessFlags = 0u;
+	ibd.MiscFlags = 0u;
+	ibd.ByteWidth = sizeof(indices);
+	ibd.StructureByteStride = sizeof(unsigned short);
+	D3D11_SUBRESOURCE_DATA isd = {};
+	isd.pSysMem = indices;
+	GFX_THROW_INFO(_pDevice->CreateBuffer(&ibd, &isd, &pIndexBuffer));
+	_pContext->IASetIndexBuffer(pIndexBuffer.Get(), DXGI_FORMAT_R16_UINT, 0u);
+
 	// PixelShader
 	Microsoft::WRL::ComPtr<ID3D11PixelShader> pPixelShader;
 	Microsoft::WRL::ComPtr<ID3DBlob> pBlob;
@@ -111,7 +142,8 @@ void Graphics::DrawTestTriangle() {
 	// 顶点输入布局
 	Microsoft::WRL::ComPtr<ID3D11InputLayout> pInputLayout;
 	const D3D11_INPUT_ELEMENT_DESC ied[] = {
-		{ "Position", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0}
+		{ "Position", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "Color", 0, DXGI_FORMAT_R8G8B8A8_UNORM, 0, 8u, D3D11_INPUT_PER_VERTEX_DATA, 0 }
 	};
 	GFX_THROW_INFO(_pDevice->CreateInputLayout(ied, (UINT)std::size(ied), pBlob->GetBufferPointer(), pBlob->GetBufferSize(), &pInputLayout));
 	_pContext->IASetInputLayout(pInputLayout.Get());
@@ -132,7 +164,7 @@ void Graphics::DrawTestTriangle() {
 	vp.TopLeftY = 0;
 	_pContext->RSSetViewports(1u, &vp);
 
-	GFX_THROW_INFO_ONLY(_pContext->Draw((UINT)std::size(vertices), 0u));
+	GFX_THROW_INFO_ONLY(_pContext->DrawIndexed((UINT)std::size(indices), 0u, 0u));
 }
 
 #pragma region class Graphics::HrException
@@ -217,9 +249,7 @@ const char* Graphics::InfoException::what() const noexcept {
 	if (!_info.empty()) {
 		woss << L"\n【错误信息】\n" << GetErrorInfo() << std::endl << std::endl;
 	}
-	// if (!GetOriginString().empty()) {
-	// 	woss << L"\n【错误详情】\n" << GetOriginString();
-	// }
+	woss << GetOriginString();
 	_whatBuffer = woss.str();
 	LPCWSTR w_str = _whatBuffer.c_str();
 	return lpwstr2lpcstr(w_str);

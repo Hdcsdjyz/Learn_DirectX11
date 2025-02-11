@@ -1,10 +1,10 @@
 /**
  * @file PixelShader.hlsl
  * @author Lhxl
- * @date 2025-2-10
- * @version build11
+ * @date 2025-2-11
+ * @version build12
  */
 
-float4 main() : SV_Target {
-    return float4(1.0f, 1.0f, 1.0f, 1.0f);
+float4 main(float4 color : Color) : SV_Target {
+	return color;
 }
