@@ -1,8 +1,8 @@
 ﻿/**
- * @file ST_Timer.cpp
+ * @file Graphics.cpp
  * @author Lhxl
  * @date 2025-2-11
- * @version build12
+ * @version build13
  */
 
 #pragma comment(lib, "d3d11.lib")
@@ -22,7 +22,7 @@ Graphics::Graphics(HWND hWnd) {
 	swap_desc.BufferDesc.RefreshRate.Denominator = 0;
 	swap_desc.BufferDesc.RefreshRate.Numerator = 0;
 	swap_desc.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
-	//swap_desc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
+	swap_desc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
 	swap_desc.SampleDesc.Count = 1;
 	swap_desc.SampleDesc.Quality = 0;
 	swap_desc.BufferCount = 1;
@@ -69,7 +69,7 @@ void Graphics::ClearBuffer(float red, float green, float blue) noexcept {
 	_pContext->ClearRenderTargetView(_pTarget.Get(), color);
 }
 
-void Graphics::DrawTestTriangle() {
+void Graphics::DrawTestTriangle(float angle) {
 	struct Vertex {
 		struct {
 			float x;
@@ -106,7 +106,7 @@ void Graphics::DrawTestTriangle() {
 	UINT offset = 0u;
 	_pContext->IASetVertexBuffers(0u, 1u, pVertexBuffer.GetAddressOf(), &stride, &offset);
 
-	// IndexBuffer
+	// 顺序缓存
 	const unsigned short indices[]{
 		0, 1, 2,
 		0, 2, 3,
@@ -126,14 +126,39 @@ void Graphics::DrawTestTriangle() {
 	GFX_THROW_INFO(_pDevice->CreateBuffer(&ibd, &isd, &pIndexBuffer));
 	_pContext->IASetIndexBuffer(pIndexBuffer.Get(), DXGI_FORMAT_R16_UINT, 0u);
 
-	// PixelShader
+	// 常数缓存
+	struct ConstantBuffer {
+		struct {
+			float element[4][4];
+		} transformation;
+	};
+	const ConstantBuffer cb = {
+		{ (9.0f / 16.0f) * std::cos(angle), std::sin(angle), 0.0f, 0.0f,
+		  (9.0f / 16.0f) * -std::sin(angle), std::cos(angle), 0.0f, 0.0f,
+		  0.0f, 0.0f, 1.0f, 0.0f,
+		  0.0f, 0.0f, 0.0f, 1.0f}
+	};
+	Microsoft::WRL::ComPtr<ID3D11Buffer> pConstantBuffer;
+	D3D11_BUFFER_DESC cbd = {};
+	cbd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+	cbd.Usage = D3D11_USAGE_DYNAMIC;
+	cbd.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+	cbd.MiscFlags = 0u;
+	cbd.ByteWidth = sizeof(cb);
+	cbd.StructureByteStride = 0u;
+	D3D11_SUBRESOURCE_DATA csd = {};
+	csd.pSysMem = &cb;
+	GFX_THROW_INFO(_pDevice->CreateBuffer(&cbd, &csd, &pConstantBuffer));
+	_pContext->VSSetConstantBuffers(0u, 1u, pConstantBuffer.GetAddressOf());
+
+	// 像素着色器
 	Microsoft::WRL::ComPtr<ID3D11PixelShader> pPixelShader;
 	Microsoft::WRL::ComPtr<ID3DBlob> pBlob;
 	GFX_THROW_INFO(D3DReadFileToBlob(L"./Shader/PixelShader.cso", &pBlob));
 	GFX_THROW_INFO(_pDevice->CreatePixelShader(pBlob->GetBufferPointer(), pBlob->GetBufferSize(), nullptr, &pPixelShader));
 	_pContext->PSSetShader(pPixelShader.Get(), nullptr, 0u);
 
-	// VertexShader
+	// 顶点着色器
 	Microsoft::WRL::ComPtr<ID3D11VertexShader> pVertexShader;
 	GFX_THROW_INFO(D3DReadFileToBlob(L"./Shader/VertexShader.cso", &pBlob));
 	GFX_THROW_INFO(_pDevice->CreateVertexShader(pBlob->GetBufferPointer(), pBlob->GetBufferSize(), nullptr, &pVertexShader));
