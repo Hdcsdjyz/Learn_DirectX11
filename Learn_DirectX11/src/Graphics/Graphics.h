@@ -1,8 +1,8 @@
 ﻿/**
  * @file Graphics.h
  * @author Lhxl
- * @date 2025-2-11
- * @version build13
+ * @date 2025-2-12
+ * @version build14
  */
 
 #ifndef GRAPHICS_H
@@ -61,12 +61,13 @@ public:
 public:
 	void EndFrame();
 	void ClearBuffer(float red, float green, float blue) noexcept;
-	void DrawTestTriangle(float angle);
+	void DrawTestTriangle(float angle, float x, float z);
 private:
 	Microsoft::WRL::ComPtr<ID3D11Device> _pDevice;
 	Microsoft::WRL::ComPtr<IDXGISwapChain> _pSwap;
 	Microsoft::WRL::ComPtr<ID3D11DeviceContext> _pContext;
 	Microsoft::WRL::ComPtr<ID3D11RenderTargetView> _pTarget;
+	Microsoft::WRL::ComPtr<ID3D11DepthStencilView> _pDSV;
 #ifndef NDEBUG
 	DxgiInfoManager _infoManager;
 #endif
