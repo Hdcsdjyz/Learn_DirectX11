@@ -1,8 +1,8 @@
-/**
+﻿/**
  * @file GraphicsExceptionMacro.h
  * @author Lhxl
- * @date 2025-2-7
- * @version build9
+ * @date 2025-2-12
+ * @version build15
  */
 
 #ifndef GRAPHICSEXCEPTIONMACRO_H
@@ -24,14 +24,10 @@
 
 #ifdef NDEBUG
 #define INFOMAN(gfx) HRESULT hr
-#else
-#define INFOMAN(gfx) HRESULT hr; DxgiInfoManager& infoManager = GetInfoManager((gfx))
-#endif
-
-#ifdef NDEBUG
 #define INFOMAN_NOHR(gfx)
 #else
-#define INFOMAN_NOHR(gfx) DxgiInfoManager& infoManager = GetInfoManager((gfx))
+#define INFOMAN(gfx) HRESULT hr; DxgiInfoManager& _infoManager = _GetInfoManager((gfx))
+#define INFOMAN_NOHR(gfx) DxgiInfoManager& _infoManager = _GetInfoManager((gfx))
 #endif
 
 #endif

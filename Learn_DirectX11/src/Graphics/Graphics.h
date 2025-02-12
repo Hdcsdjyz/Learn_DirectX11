@@ -16,6 +16,7 @@
 #include "DxgiInfoManager.h"
 
 class Graphics {
+	friend class Bindable;
 public:
 	class Exception : public ST_Exception {
 		using ST_Exception::ST_Exception;
