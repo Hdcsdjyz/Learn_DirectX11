@@ -1,8 +1,8 @@
 ﻿/**
  * @file ConstantBuffer.h
  * @author Lhxl
- * @date 2025-2-12
- * @version build15
+ * @date 2025-2-13
+ * @version build16
  */
 
 #ifndef CONSTANTBUFFER_H
@@ -58,7 +58,7 @@ public:
 	using ConstantBuffer<Type>::ConstantBuffer;
 public:
 	void Bind(Graphics& gfx) noexcept override {
-		_GetContext(gfx)->VSSetConstantBuffers(0u, 1u, _pConstantBuffer.GetAddressOf())
+		_GetContext(gfx)->VSSetConstantBuffers(0u, 1u, _pConstantBuffer.GetAddressOf());
 	}
 };
 
@@ -70,7 +70,7 @@ public:
 	using ConstantBuffer<Type>::ConstantBuffer;
 public:
 	void Bind(Graphics& gfx) noexcept override {
-		_GetContext(gfx)->PSSetConstantBuffers(0u, 1u, _pConstantBuffer.GetAddressOf())
+		_GetContext(gfx)->PSSetConstantBuffers(0u, 1u, _pConstantBuffer.GetAddressOf());
 	}
 };
 

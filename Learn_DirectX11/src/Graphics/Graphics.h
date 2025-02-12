@@ -1,8 +1,8 @@
 ﻿/**
  * @file Graphics.h
  * @author Lhxl
- * @date 2025-2-12
- * @version build14
+ * @date 2025-2-13
+ * @version build16
  */
 
 #ifndef GRAPHICS_H
@@ -10,6 +10,7 @@
 
 #include <vector>
 #include <wrl.h>
+#include <DirectXMath.h>
 
 #include "../ST_General/ST_Window.h"
 #include "../ST_General/ST_Exception.h"
@@ -62,13 +63,16 @@ public:
 public:
 	void EndFrame();
 	void ClearBuffer(float red, float green, float blue) noexcept;
-	void DrawTestTriangle(float angle, float x, float z);
+	void DrawIndexed(UINT count) noexcept(!_DEBUG);
+	DirectX::XMMATRIX GetProjection() const noexcept;
+	void SetProjection(DirectX::XMMATRIX projection) noexcept;
 private:
 	Microsoft::WRL::ComPtr<ID3D11Device> _pDevice;
 	Microsoft::WRL::ComPtr<IDXGISwapChain> _pSwap;
 	Microsoft::WRL::ComPtr<ID3D11DeviceContext> _pContext;
 	Microsoft::WRL::ComPtr<ID3D11RenderTargetView> _pTarget;
 	Microsoft::WRL::ComPtr<ID3D11DepthStencilView> _pDSV;
+	DirectX::XMMATRIX _projection;
 #ifndef NDEBUG
 	DxgiInfoManager _infoManager;
 #endif

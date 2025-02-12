@@ -1,8 +1,8 @@
 ﻿/**
  * @file PixelShader.cpp
  * @author Lhxl
- * @date 2025-2-12
- * @version build15
+ * @date 2025-2-13
+ * @version build16
  */
 
 #pragma comment(lib, "D3DCompiler.lib")
@@ -14,7 +14,7 @@
 
 PixelShader::PixelShader(Graphics& gfx, const std::wstring path) {
 	INFOMAN(gfx);
-	GFX_THROW_INFO(D3DReadFileToBlob(path.c_str(), &_pBlob));
+	GFX_THROW_INFO(D3DReadFileToBlob((L"./Shader/" + path).c_str(), &_pBlob));
 	GFX_THROW_INFO(_GetDevice(gfx)->CreatePixelShader(_pBlob->GetBufferPointer(), _pBlob->GetBufferSize(), nullptr, &_pPixelShader));
 }
 

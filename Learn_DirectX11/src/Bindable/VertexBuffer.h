@@ -1,8 +1,8 @@
 ﻿/**
  * @file VertexBuffer.h
  * @author Lhxl
- * @date 2025-2-12
- * @version build15
+ * @date 2025-2-13
+ * @version build16
  */
 
 #ifndef VERTEXBUFFER_H
@@ -14,12 +14,13 @@
 class VertexBuffer : public Bindable {
 public:
 	template<typename Type>
-	VertexBuffer(Graphics& gfx, const std::vector<Type>& vertices) : _stride(sizeof(Type)), offset(0u) {
+	VertexBuffer(Graphics& gfx, const std::vector<Type>& vertices) : _stride(sizeof(Type)), _offset(0u) {
+		INFOMAN(gfx);
 		_bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 		_bd.Usage = D3D11_USAGE_DEFAULT;
 		_bd.CPUAccessFlags = 0u;
 		_bd.MiscFlags = 0u;
-		_bd.ByteWidth = sizeof(Type) * vertices.size();
+		_bd.ByteWidth = (UINT)(sizeof(Type) * vertices.size());
 		_bd.StructureByteStride = _stride;
 		_sd.pSysMem = vertices.data();
 		GFX_THROW_INFO(_GetDevice(gfx)->CreateBuffer(&_bd, &_sd, &_pVertexBuffer));

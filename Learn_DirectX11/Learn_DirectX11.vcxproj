@@ -179,6 +179,8 @@
     <ClCompile Include="src\Bindable\TransformCBuf.cpp" />
     <ClCompile Include="src\Bindable\VertexBuffer.cpp" />
     <ClCompile Include="src\Bindable\VertexShader.cpp" />
+    <ClCompile Include="src\Drawable\Box.cpp" />
+    <ClCompile Include="src\Drawable\Drawable.cpp" />
     <ClCompile Include="src\Graphics\DxgiInfoManager.cpp" />
     <ClCompile Include="src\ST_General\function.cpp" />
     <ClCompile Include="src\Graphics\Graphics.cpp" />
@@ -202,6 +204,8 @@
     <ClInclude Include="src\Bindable\TransformCBuf.h" />
     <ClInclude Include="src\Bindable\VertexBuffer.h" />
     <ClInclude Include="src\Bindable\VertexShader.h" />
+    <ClInclude Include="src\Drawable\Box.h" />
+    <ClInclude Include="src\Drawable\Drawable.h" />
     <ClInclude Include="src\Graphics\DxgiInfoManager.h" />
     <ClInclude Include="src\Graphics\Graphics.h" />
     <ClInclude Include="src\Graphics\GraphicsExceptionMacro.h" />
