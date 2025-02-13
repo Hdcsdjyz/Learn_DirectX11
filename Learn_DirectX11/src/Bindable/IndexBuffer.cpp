@@ -2,7 +2,7 @@
  * @file IndexBuffer.cpp
  * @author Lhxl
  * @date 2025-2-13
- * @version build16
+ * @version build17
  */
 
 #include "IndexBuffer.h"
@@ -14,7 +14,7 @@ IndexBuffer::IndexBuffer(Graphics& gfx, const std::vector<unsigned short>& indic
 	_ibd.Usage = D3D11_USAGE_DEFAULT;
 	_ibd.CPUAccessFlags = 0u;
 	_ibd.MiscFlags = 0u;
-	_ibd.ByteWidth = _count * sizeof(unsigned short);
+	_ibd.ByteWidth = (UINT)(_count * sizeof(unsigned short));
 	_ibd.StructureByteStride = sizeof(unsigned short);
 	_isd.pSysMem = indices.data();
 	GFX_THROW_INFO(_GetDevice(gfx)->CreateBuffer(&_ibd, &_isd, &_pIndexBuffer));

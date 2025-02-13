@@ -2,7 +2,7 @@
  * @file VertexShader.h
  * @author Lhxl
  * @date 2025-2-13
- * @version build16
+ * @version build17
  */
 
 #ifndef VERTEXSHADER_H
@@ -12,7 +12,7 @@
 
 class VertexShader : public Bindable {
 public:
-	VertexShader(Graphics& gfx, const std::wstring path) noexcept;
+	VertexShader(Graphics& gfx, const std::wstring path) noexcept(!_DEBUG);
 public:
 	void Bind(Graphics& gfx) noexcept override;
 	ID3DBlob* GetBytecode() const noexcept;

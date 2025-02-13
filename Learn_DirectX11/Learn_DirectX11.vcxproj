@@ -206,6 +206,7 @@
     <ClInclude Include="src\Bindable\VertexShader.h" />
     <ClInclude Include="src\Drawable\Box.h" />
     <ClInclude Include="src\Drawable\Drawable.h" />
+    <ClInclude Include="src\Drawable\ST_Drawable.hpp" />
     <ClInclude Include="src\Graphics\DxgiInfoManager.h" />
     <ClInclude Include="src\Graphics\Graphics.h" />
     <ClInclude Include="src\Graphics\GraphicsExceptionMacro.h" />

@@ -158,6 +158,9 @@
     <ClInclude Include="src\Drawable\Drawable.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="src\Drawable\ST_Drawable.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="src\resource\Resource.rc">

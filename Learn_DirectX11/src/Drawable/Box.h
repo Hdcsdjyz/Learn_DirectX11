@@ -2,7 +2,7 @@
  * @file Box.h
  * @author Lhxl
  * @date 2025-2-13
- * @version build16
+ * @version build17
  */
 
 #ifndef BOX_H
@@ -10,9 +10,9 @@
 
 #include <random>
 
-#include "Drawable.h"
+#include "ST_Drawable.hpp"
 
-class Box : public Drawable {
+class Box : public ST_Drawable<Box> {
 public:
 	Box(
 		Graphics& gfx,
